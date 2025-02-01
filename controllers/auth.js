@@ -7,9 +7,13 @@ exports.registerUser = async (req, res) => {
   try {
     const saltRounds = 10; //how many times the hashing algorithm runs
     //check if existing email
-    const existingUser = await User.findOne({ email: req.body.email });
-    if (existingUser) {
+    const existingUserEmail = await User.findOne({ email: req.body.email });
+    if (existingUserEmail) {
       return res.status(400).json({ message: "Email already exists" });
+    }
+    const existingUserUsername = await User.findOne({username:req.body.username});
+    if (existingUserUsername) {
+      return res.status(400).json({ message: "Username already exists" });
     }
     const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
     const newUser = new User({
@@ -99,6 +103,8 @@ exports.sendOTP = async (req, res) => {
 exports.verifyOTP = async (req, res) => {
   try {
     const { email, otp } = req.body;
+    console.log(email);
+    console.log(otp);
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "User not found" });
