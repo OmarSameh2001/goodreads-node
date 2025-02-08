@@ -5,9 +5,11 @@ const Category = require("../models/category");
 const mongoose = require("mongoose");
 const { addImgurImage } = require("../utils/imgurImage");
 const sendResponse = require('../utils/responseUtil');
+const {uploadFile}=require ("../utils/googleDrive");
 
 exports.createBook = async (req, res) => {
   try {
+    const { title, author, edition } = req.body;
     const existingBook = await Book.findOne({ title, author, edition });
 
     if (existingBook) {
@@ -21,9 +23,12 @@ exports.createBook = async (req, res) => {
 
     res.status(201).json({ success: true, book });
   } catch (error) {
+    console.error("Error creating book:", error);
     res.status(400).send(error);
   }
 };
+
+
 // Get all items with pagination and search 
 // example of calling the api http://localhost:3001/books/paginated?page=1&limit=2
 exports.getAllWithPagination = async (req, res) => {
@@ -67,6 +72,15 @@ exports.getBooks = async (req, res) => {
    res.status(500).send(error);
  }
 };
+
+// exports.getBooks = async (req, res) => {
+//   try {
+//     const books = await Book.find().populate("category", "name").populate("author", "name");
+//     res.status(200).json(books);
+//   } catch (error) {
+//     res.status(500).json({ message: "Error fetching books", error });
+//   }
+// };
 
 exports.getBooksPopular = async (req, res) => {
   try {
