@@ -3,8 +3,11 @@ const bookController = require("../controllers/bookController");
 const router = express.Router();
 const authorizeToken = require("../middleware/authorize");
 const authenticateToken = require("../middleware/authenticate");
+const upload= require("../middleware/googleDriveMiddelware")
 
 router.post("/", authenticateToken, authorizeToken, bookController.createBook);
+// router.post("/", upload.single("pdf"), bookController.createBook);
+// router.get("/paginated", authenticateToken, bookController.getAllWithPagination);
 router.get("/paginated", authenticateToken, bookController.getAllWithPagination);
 router.get("/", authenticateToken, bookController.getBooks);
 router.get("/filter", authenticateToken, bookController.getBooksfilter);
