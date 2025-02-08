@@ -6,7 +6,7 @@ const { param } = require("../routes");
 exports.createUserBook = async (req, res) => {
   try {
     console.log("test");
-    const newUserBook = new userBook(req.body);
+    const newUserBook = new userBookModel(req.body);
     const existingUserBook = await userBookModel.findOne({
       user: req.body.user,
       book: req.body.book,
