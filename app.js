@@ -7,6 +7,7 @@ const bookRoutes = require("./routes/bookRoutes");
 const authorRoutes = require("./routes/authorRoutes");
 // const userRoutes = require("./routes/userRoutes");
 const userBookRoutes = require("./routes/userBookRoutes");
+//const bookReviews = require("./routes/bookReviewRoutes");
 const userCategoryRoutes = require("./routes/userCategoryRoutes");
 const siteContentRoutes = require("./routes/siteContentRoutes");
 const routes = require("./routes");
@@ -78,13 +79,16 @@ async function uploadFile(authClient, filePath, fileName) {
     });
 
     // embedded link
-    const fileUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+    const fileUrl= `https://drive.google.com/file/d/${fileId}/preview`;
+      const flileUrlID = `https://drive.google.com/uc?id=${fileId}&export=download`;
 
     // Delete file from local storage after successful upload
     //hal ha7tagha ?
     fs.unlinkSync(filePath);
 
-    return fileUrl;
+
+    return fileUrl ;
+
   } catch (error) {
     console.error("Error uploading file:", error);
     throw error;
@@ -119,7 +123,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     const fileUrl = await uploadFile(authClient, req.file.path, req.file.originalname);
 
     // Delete the temporary file after upload
-    fs.unlinkSync(req.file.path);
+    // fs.unlinkSync(req.file.path);
 
     res.status(200).json({ fileUrl });
   } catch (error) {
@@ -127,6 +131,9 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     res.status(500).json({ message: "Failed to upload file", error: error.message });
   }
 });
+
+
+
 
 
 // const passport = require("passport");
@@ -152,6 +159,7 @@ app.use(express.json());
 app.use("/categories", categoryRoutes);
 app.use("/books", bookRoutes);
 app.use("/authors", authorRoutes);
+//app.use("/bookReviews", bookReviews);
 app.use("/usercategories", userCategoryRoutes);
 app.use("/siteContent", siteContentRoutes);
 // app.use("/users", userRoutes);
