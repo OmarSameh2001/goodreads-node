@@ -152,7 +152,10 @@ This project is licensed under the MIT License.
 
 ---
 
-## 👨‍💻 Author
-- **Your Name** - [GitHub](https://github.com/your-username)
+## 👨‍💻 Authors
+- **Omar Sameh** - [GitHub](https://github.com/OmarSameh2001)
+- **Hussein Saad** - [GitHub](https://github.com/eng-hussein-saad)
+- **Aisha Amr** - [GitHub](https://github.com/aishaa205)
+- **Hoda Magdy** - [GitHub](https://github.com/Hoda-ArtCoder)
 ```
 
